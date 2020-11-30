@@ -101,14 +101,17 @@ let car = new Car(100);
 let engine= new Engine();
 let musicPlayer=new MusicPlayer();
 
+const turnOff='Turn music off';
+const turnOn='Turn music on';
+
 musicToggleElement.addEventListener('click', () => {
     if(musicPlayer.musicLevel === 0) {
         musicPlayer.turnMusicOn();
         musicSliderElement.value = musicPlayer.musicLevel.toString();
-        musicToggleElement.innerText = 'Turn music off';
+        musicToggleElement.innerText = turnOff;
         return;
     }
-    musicToggleElement.innerText = 'Turn music on';
+    musicToggleElement.innerText = turnOn;
     musicPlayer.turnMusicOff();
 });
 
@@ -120,7 +123,7 @@ musicSliderElement.addEventListener('input', (event) => {
     audioElement.volume = musicPlayer.musicLevel / 100;
 
     //@todo when you are repeating the same text over and over again maybe we should have made some constants for it? Can you do improve on this?
-    musicToggleElement.innerText = musicPlayer.musicLevel ? 'Turn music off' : 'Turn music on';
+    musicToggleElement.innerText = musicPlayer.musicLevel ? turnOff : turnOn;
 });
 
 engineToggleElement.addEventListener('click', () => {

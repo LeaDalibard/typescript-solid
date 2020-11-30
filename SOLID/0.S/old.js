@@ -1,3 +1,4 @@
+"use strict";
 var Car = /** @class */ (function () {
     function Car(MAXIMUM_FUEL_CAPACITY) {
         //it is convention to start property names in TypeScript with an underscore.
@@ -14,7 +15,7 @@ var Car = /** @class */ (function () {
         get: function () {
             return this._miles;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Car.prototype, "musicLevel", {
@@ -26,7 +27,7 @@ var Car = /** @class */ (function () {
             this._musicLevel = value;
             this._oldMusicLevel = value;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Car.prototype.turnMusicOn = function () {
@@ -39,7 +40,7 @@ var Car = /** @class */ (function () {
         get: function () {
             return this._fuel;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //When a value can only go one way (you add fuel, consuming fuel is handled by the car itself)
@@ -52,7 +53,7 @@ var Car = /** @class */ (function () {
         get: function () {
             return this._engineStatus;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Car.prototype.turnEngineOn = function () {

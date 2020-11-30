@@ -1,3 +1,4 @@
+"use strict";
 var User = /** @class */ (function () {
     function User() {
         this._password = 'user';

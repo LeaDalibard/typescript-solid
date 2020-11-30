@@ -1,3 +1,4 @@
+"use strict";
 var Discount = /** @class */ (function () {
     function Discount(type, value) {
         if (value === void 0) { value = 0; }

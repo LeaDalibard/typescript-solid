@@ -99,14 +99,16 @@ var audioElement = document.querySelector('#car-music');
 var car = new Car(100);
 var engine = new Engine();
 var musicPlayer = new MusicPlayer();
+var turnOff = 'Turn music off';
+var turnOn = 'Turn music on';
 musicToggleElement.addEventListener('click', function () {
     if (musicPlayer.musicLevel === 0) {
         musicPlayer.turnMusicOn();
         musicSliderElement.value = musicPlayer.musicLevel.toString();
-        musicToggleElement.innerText = 'Turn music off';
+        musicToggleElement.innerText = turnOff;
         return;
     }
-    musicToggleElement.innerText = 'Turn music on';
+    musicToggleElement.innerText = turnOn;
     musicPlayer.turnMusicOff();
 });
 //I use input instead of change, because then the value changes when I move the mouse, not only on release
@@ -115,7 +117,7 @@ musicSliderElement.addEventListener('input', function (event) {
     musicPlayer.musicLevel = target.value;
     audioElement.volume = musicPlayer.musicLevel / 100;
     //@todo when you are repeating the same text over and over again maybe we should have made some constants for it? Can you do improve on this?
-    musicToggleElement.innerText = musicPlayer.musicLevel ? 'Turn music off' : 'Turn music on';
+    musicToggleElement.innerText = musicPlayer.musicLevel ? turnOff : turnOn;
 });
 engineToggleElement.addEventListener('click', function () {
     if (engine.status) {
