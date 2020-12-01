@@ -1,44 +1,93 @@
 "use strict";
-var Discount = /** @class */ (function () {
-    function Discount(type, value) {
+var VariableDiscount = /** @class */ (function () {
+    function VariableDiscount(type, value) {
         if (value === void 0) { value = 0; }
+        this._type = "variable";
+        this._value = value;
+        if (value <= 0) {
+            throw new Error('You cannot create a ' + this._type + ' discount with a negative value');
+        }
+    }
+    VariableDiscount.prototype.apply = function (price) {
+        return (price - (price * this._value / 100));
+    };
+    VariableDiscount.prototype.showCalculation = function (price) {
+        return price + " € -  " + this._value + "%";
+    };
+    return VariableDiscount;
+}());
+var FixedDiscount = /** @class */ (function () {
+    function FixedDiscount(type, value) {
+        if (value === void 0) { value = 0; }
+        this._type = "fixed";
+        this._value = value;
+        if (value <= 0) {
+            throw new Error('You cannot create a ' + this._type + ' discount with a negative value');
+        }
+    }
+    FixedDiscount.prototype.apply = function (price) {
+        return Math.max(0, price - this._value);
+    };
+    FixedDiscount.prototype.showCalculation = function (price) {
+        return price + "€ -  " + this._value + "€ (min 0 €)";
+    };
+    return FixedDiscount;
+}());
+var NoDiscount = /** @class */ (function () {
+    function NoDiscount(type, value) {
+        if (value === void 0) { value = 0; }
+        this._type = "none";
+        this._value = value;
+        if (value <= 0) {
+            throw new Error('You cannot create a ' + this._type + ' discount with a negative value');
+        }
+    }
+    NoDiscount.prototype.apply = function (price) {
+        return price;
+    };
+    NoDiscount.prototype.showCalculation = function (price) {
+        return "No discount";
+    };
+    return NoDiscount;
+}());
+/* class Discount {
+    private _type: discountType;
+    private _value: number;
+
+    constructor(type: discountType, value: number = 0) {
         this._type = type;
         this._value = value;
+
         if (this._type != 'none' && value <= 0) {
             throw new Error('You cannot create a ' + this._type + ' discount with a negative value');
         }
     }
-    Discount.prototype.apply = function (price) {
+
+    apply(price: number): number {
         //@todo: instead of using magic values as string in this, it would be a lot better to change them into constant. This would protect us from misspellings. Can you improve this?
         if (this._type === "none") {
             return price;
-        }
-        else if (this._type === "variable") {
+        } else if (this._type === "variable") {
             return (price - (price * this._value / 100));
-        }
-        else if (this._type === "fixed") {
+        } else if (this._type === "fixed") {
             return Math.max(0, price - this._value);
-        }
-        else {
+        } else {
             throw new Error('Invalid type of discount');
         }
-    };
-    Discount.prototype.showCalculation = function (price) {
+    }
+
+    showCalculation(price: number): string {
         if (this._type === "none") {
             return "No discount";
-        }
-        else if (this._type === "variable") {
+        } else if (this._type === "variable") {
             return price + " € -  " + this._value + "%";
-        }
-        else if (this._type === "fixed") {
+        } else if (this._type === "fixed") {
             return price + "€ -  " + this._value + "€ (min 0 €)";
-        }
-        else {
+        } else {
             throw new Error('Invalid type of discount');
         }
-    };
-    return Discount;
-}());
+    }
+}*/
 var Product = /** @class */ (function () {
     function Product(name, price, discount) {
         this._name = name;
