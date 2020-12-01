@@ -31,27 +31,26 @@ var Admin = /** @class */ (function () {
     function Admin() {
         this._password = 'admin';
     }
-    Admin.prototype.checkGoogleLogin = function (token) {
-        return false;
-    };
     Admin.prototype.checkPassword = function (password) {
         return (password === this._password);
-    };
-    Admin.prototype.getFacebookLogin = function (token) {
-        return false;
-    };
-    Admin.prototype.setFacebookToken = function () {
-        throw new Error('Function not supported for admins');
-    };
-    Admin.prototype.setGoogleToken = function () {
-        throw new Error('Function not supported for admins');
     };
     Admin.prototype.resetPassword = function () {
         this._password = prompt('What is your new password?');
     };
     return Admin;
 }());
-// class GoogleBot implements UserAuth {}
+var GoogleBot = /** @class */ (function () {
+    function GoogleBot() {
+    }
+    GoogleBot.prototype.checkGoogleLogin = function (token) {
+        // return "this will not work";
+        return (token === this._googleToken);
+    };
+    GoogleBot.prototype.setGoogleToken = function (token) {
+        this._googleToken = token;
+    };
+    return GoogleBot;
+}());
 var passwordElement = document.querySelector('#password');
 var typePasswordElement = document.querySelector('#typePassword');
 var typeGoogleElement = document.querySelector('#typeGoogle');
